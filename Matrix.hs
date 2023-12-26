@@ -20,3 +20,7 @@ removeRow (Matrix rows) n = Matrix (removeEl n rows)
 
 removeCol :: Matrix -> Int -> Matrix
 removeCol (Matrix rows) n = Matrix (map (removeEl n) rows)
+
+isEmpty :: Matrix -> Bool
+isEmpty (Matrix []) = True
+isEmpty _ = False

@@ -3,6 +3,7 @@ import Polyomino;
 import Matrix;
 import KnuthMatrixGeneration;
 
-solvePuzzle :: Polyomino -> [Polyomino] -> Bool
-solvePuzzle universe pols = let knuthMat = genMatrix universe pols in
-                                False
+solvePuzzle :: Matrix -> Bool
+solvePuzzle mat 
+                | isEmpty mat = True
+                | otherwise = False
