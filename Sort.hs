@@ -1,8 +1,5 @@
 module Sort where
 
--- leqLex :: (Int,Int) -> (Int,Int) -> Bool
--- leqLex (a,b) (x,y) = (a <= x) || (a == x && b <= y)
-
 merge :: [(Int,Int)] -> [(Int,Int)] -> [(Int,Int)]
 merge x y           | null x             = y
                     | null y             = x

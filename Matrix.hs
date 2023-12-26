@@ -1,7 +1,4 @@
-module Types where
-
--- define Polyomino as a set of points in R2
-newtype Polyomino = Polyomino [(Int,Int)] deriving (Show, Eq)
+module Matrix where
 
 newtype Matrix = Matrix [[Bool]] deriving Show
 

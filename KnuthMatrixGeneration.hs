@@ -1,6 +1,6 @@
 module KnuthMatrixGeneration where
-import Types
-import PrintPolyomino
+import Polyomino;
+import Matrix;
 
 -- checks if A is a subset of B
 subset :: Polyomino -> Polyomino -> Bool

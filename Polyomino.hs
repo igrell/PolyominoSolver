@@ -1,6 +1,8 @@
-module PrintPolyomino where
+module Polyomino where
 import Sort;
-import Types;
+
+-- define Polyomino as a set of points in R2
+newtype Polyomino = Polyomino [(Int,Int)] deriving (Show, Eq)
 
 -- soft Polyomino lexicographically
 sortPolyomino :: Polyomino -> Polyomino
@@ -32,3 +34,7 @@ printPolyomino (Polyomino pts) = putStr $ concatMap ((++"\n") . parsePolyominoRo
                                        xMax = maximum (map fst pts)
                                        yMin = minimum (map snd pts)
                                        yMax = maximum (map snd pts)
+
+parsePolyominos :: [[(Int,Int)]] -> (Polyomino, [Polyomino])
+parsePolyominos (x:xs) = (Polyomino x, map Polyomino xs)
+
