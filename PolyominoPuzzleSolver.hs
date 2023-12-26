@@ -4,11 +4,11 @@ import Matrix;
 import KnuthMatrixGeneration;
 
 chooseRows :: Matrix -> [Int]
-chooseRows mat = findTrueRows mat (chooseCol mat)
-                where chooseCol = fewestTruesCol
+chooseRows mat = chooseRowsStep2 mat (chooseCol mat)
+                where chooseCol = chooseColStep1
 
 getIdsToRemove :: Matrix -> Int -> ([Int], [Int])
-getIdsToRemove mat rowId = (chosenCols,removeDuplicates $ foldl (\colsLst colId -> colsLst ++ findTrueRows mat colId) [] chosenCols) -- TODO findTrueRows dobrze??
+getIdsToRemove mat rowId = (chosenCols,removeDuplicates $ foldl (\colsLst colId -> colsLst ++ chooseRowsStep2 mat colId) [] chosenCols) -- TODO chooseRowsStep2 dobrze??
                          where chosenCols = findTrueCols mat rowId
 
 deleteStep :: Matrix -> Int -> Matrix

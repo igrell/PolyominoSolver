@@ -20,6 +20,12 @@ getCols (Matrix rows) = map (getCol (Matrix rows)) [0..(length (head rows) - 1)]
 getEl :: Matrix -> Int -> Int -> Bool
 getEl (Matrix rows) n m = (rows !! n) !! m
 
+rowLength :: Matrix -> Int
+rowLength (Matrix rows) = length (head rows)
+
+colLength :: Matrix -> Int
+colLength (Matrix rows) = length rows
+    
 -- Removing utils --
 
 removeEl :: Int -> [a] -> [a]
@@ -61,28 +67,34 @@ filterFewest :: [Int] -> [Bool]
 filterFewest lst = map (== fewest) lst
                    where fewest = minimum lst
 
-fewestTruesColHelper :: Matrix -> Int -> Int
-fewestTruesColHelper (Matrix rows) n | n == length (head rows) = -1 -- Edgecase if function receives matrix with a purely False column (shouldn't happen)
+chooseColStep1Helper :: Matrix -> Int -> Int
+chooseColStep1Helper (Matrix rows) n | n == length (head rows) = -1 -- Edgecase if function receives matrix with a purely False column (shouldn't happen)
                                      | fewest !! n = n
-                                     | otherwise   = fewestTruesColHelper (Matrix rows) (n+1)
+                                     | otherwise   = chooseColStep1Helper (Matrix rows) (n+1)
                               where fewest = filterFewest (countTruesInCols (Matrix rows))
 
--- Outputs the index of column with fewest 1's (Trues)
-fewestTruesCol :: Matrix -> Int
-fewestTruesCol mat = fewestTruesColHelper mat 0
-
 hasEmptyCol :: Matrix -> Bool
-hasEmptyCol mat = fewestTruesCol mat == 0
-
+hasEmptyCol mat = chooseColStep1 mat == 0
 
 hasTrue :: [Bool] -> Bool
 hasTrue lst = not (null lst)
-
--- Outputs indexex of rows R such that for given column C M_(R,C) == True
-findTrueRows :: Matrix -> Int -> [Int]
-findTrueRows (Matrix rows) selColId = [k | k <- [0..(length rows - 1)], getEl (Matrix rows) k selColId]
 
 -- Outputs indexex of columns C such that for given row R M_(R,C) == True
 findTrueCols :: Matrix -> Int -> [Int]
 findTrueCols (Matrix rows) selRowId = [k | k <- [0..(length (head rows) - 1)], getEl (Matrix rows) selRowId k]
 
+-- ALGORITHM --
+
+-- Outputs the index of column with fewest 1's (Trues)
+chooseColStep1 :: Matrix -> Int
+chooseColStep1 mat = chooseColStep1Helper mat 0
+
+-- Outputs indexex of rows R such that for given column C M_(R,C) == True
+chooseRowsStep2 :: Matrix -> Int -> [Int]
+chooseRowsStep2 (Matrix rows) selColId = [k | k <- [0..(length rows - 1)], getEl (Matrix rows) k selColId]
+
+chooseSubColsStep3_1 :: Matrix -> Int -> [Int]
+chooseSubColsStep3_1 mat r = [j | j <- [1..]]
+
+chooseSubRowsStep3_2 :: Matrix -> Int -> [Int]
+-- chooseSubRowsStep3_2 mat j = [i | i <- []]
