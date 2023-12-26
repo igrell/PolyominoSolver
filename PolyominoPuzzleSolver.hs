@@ -8,7 +8,7 @@ chooseRows mat = findTrueRows mat (chooseCol mat)
                 where chooseCol = fewestTruesCol
 
 getIdsToRemove :: Matrix -> Int -> ([Int], [Int])
-getIdsToRemove mat rowId = (chosenCols,removeDuplicates $ foldl (\colsLst colId -> colsLst ++ findTrueRows mat colId) [] chosenCols)
+getIdsToRemove mat rowId = (chosenCols,removeDuplicates $ foldl (\colsLst colId -> colsLst ++ findTrueRows mat colId) [] chosenCols) -- TODO findTrueRows dobrze??
                          where chosenCols = findTrueCols mat rowId
 
 deleteStep :: Matrix -> Int -> Matrix
