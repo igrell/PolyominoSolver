@@ -4,6 +4,9 @@ https://en.wikipedia.org/wiki/Polyomino
 
 Given a "building set" of polyominos and a universe polyomino, program outputs whether it is possible to build the universe polyomino with polyominos from the building set.
 
+## Requirements
+A working `ghc` compiler: https://www.haskell.org/ghc/ or any online Haskell compiler.
+
 ## Usage
 ### Compile Main
 ` ghc Main.hs `
