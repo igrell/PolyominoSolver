@@ -55,9 +55,7 @@ removeDuplicates :: [Int] -> [Int]
 removeDuplicates [] = []
 removeDuplicates (x:xs) = x: removeDuplicates [k | k <- xs, k /= x]
 
-isEmpty :: Matrix -> Bool
-isEmpty (Matrix []) = True 
-isEmpty (Matrix rows) = maximum (map length rows) == 0 -- has only some amount of empty rows
+-- counting Trues
 
 countTruesInCols :: Matrix -> [Int]
 countTruesInCols (Matrix rows) = map (length . filter id) (getCols (Matrix rows))
@@ -72,10 +70,21 @@ chooseColStep1Helper (Matrix rows) n | fewest !! n = n
                                      | otherwise   = chooseColStep1Helper (Matrix rows) (n+1)
                               where fewest = filterFewest (countTruesInCols (Matrix rows))
 
+-- Checking properties utils
+
+isEmpty :: Matrix -> Bool
+isEmpty (Matrix []) = True
+isEmpty (Matrix rows) = maximum (map length rows) == 0 -- has only some amount of empty rows
+
 hasEmptyCol :: Matrix -> Bool
 hasEmptyCol mat = minimum (countTruesInCols mat) == 0
 
--- Outputs indexex of columns C such that for given row R M_(R,C) == True
--- findTrueCols :: Matrix -> Int -> [Int]
--- findTrueCols (Matrix rows) selRowId = [k | k <- [0..(rowLength (Matrix rows) - 1)], getEl (Matrix rows) selRowId k]
+hasFullCol :: Matrix -> Bool
+hasFullCol mat = maximum (countTruesInCols mat) == colLength mat
 
+hasFullRow :: Matrix -> Bool
+hasFullRow (Matrix rows) = any and rows
+
+-- edgecases such as (Matrix [[True,True,False],[False,True,True]])
+overcoverEdgecase :: Matrix -> Bool
+overcoverEdgecase mat = hasFullCol mat && not (hasFullRow mat)

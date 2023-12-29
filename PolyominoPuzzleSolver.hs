@@ -43,16 +43,14 @@ reduceMatrixStep3 :: Matrix -> Int -> Matrix
 reduceMatrixStep3 mat r = deleteSubColsStep3_4 (deleteSubRowsStep3_3 mat (combineSubRowsStep3_2_5 mat r)) subcols
                         where subcols = chooseSubColsStep3_1 mat r
 
+-- returns all matrices for subalgorithms
 knuthStep :: Matrix -> [Matrix]
 knuthStep mat = map (reduceMatrixStep3 mat) (chooseRowsStep2 mat (chooseColStep1 mat))
 
 mapToSols :: Matrix -> [Bool]
 mapToSols mat = map solvePuzzle (knuthStep mat)
 
--- TODO: Matrix [[False, True]]
--- TODO: solvePuzzle mat1
 solvePuzzle :: Matrix -> Bool
 solvePuzzle mat | isEmpty mat = True
-                | hasEmptyCol mat = False
---                 | otherwise   = foldl (||) False ()
+                | hasEmptyCol mat || overcoverEdgecase mat = False
                 | otherwise   = or (mapToSols mat)

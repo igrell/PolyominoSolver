@@ -24,6 +24,7 @@ univ3 = Polyomino [(0,0),(0,1),(1,0),(1,1)]
 mat1 = Matrix [[True,False,False,True,False,False,True],[True,False,False,True,False,False,False],[False,False,False,True,True,False,True],[False,False,True,False,True,True,False],[False,True,True,False,False,True,True],[False,True,False,False,False,False,True]]
 mat2 = genMatrix univ3 [pol3,pol8]
 mat3 = genMatrix univ3 [pol1]
+mat4 = Matrix [[True,True,False],[False,True,True]]
 
 -- \TESTING --
 
