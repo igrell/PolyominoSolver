@@ -2,7 +2,9 @@
 
 https://en.wikipedia.org/wiki/Polyomino
 
-Given a "building set" of polyominos and a universe polyomino, program outputs whether it is possible to build the universe polyomino with polyominos from the building set.
+Given a "building set" of polyominos and a universe polyomino, program outputs whether it is possible to build the universe polyomino with polyominos from the building set. 
+
+Problem is restricted version of the exact cover problem, and as such it is solved using Knuth's Algorithm X (https://en.wikipedia.org/wiki/Knuth's_Algorithm_X).
 
 ## Requirements
 A working `ghc` compiler: https://www.haskell.org/ghc/ or any online Haskell compiler.
