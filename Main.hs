@@ -44,4 +44,5 @@ contentToMatrix contents = uncurry genMatrix pols
 main = do
 --     (fstArg:_) <- getArgs
     fileContents <- readFile "input.txt"
+    printMat (contentToMatrix fileContents)
     print (solvePuzzle (contentToMatrix fileContents))
