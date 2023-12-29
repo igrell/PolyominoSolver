@@ -28,3 +28,31 @@ Where `u0`, `u1` etc. are points forming the universe polyomino and `pA0`, ..., 
 (1,0) (1,1) (0,1) (1,2)
 ### Output
 Program outputs the graphical representation of the inputted universe polyomino, all the polyominos from building set, and a boolean answer to the puzzle.
+#### Example output
+Your universe:
+
+ooo
+
+ooo
+
+ooo
+
+
+Your polyominos:
+
+oo
+
+o 
+
+
+oo
+
+
+ o
+ 
+oo
+
+ o
+
+
+Solution to the problem: True
