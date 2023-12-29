@@ -15,6 +15,7 @@ pol5 = Polyomino [(0,0),(0,1),(0,2),(0,3),(1,2),(2,2),(2,1),(2,0)]
 pol6 = Polyomino [(1,0),(1,1),(0,1),(1,2)]
 pol7 = Polyomino [(0,0),(1,0)]
 pol8 = Polyomino [(0,1),(1,0),(1,1)]
+pol9 = Polyomino [(0,0),(1,0),(2,0)]
 --- Universes
 univ1 = Polyomino [(0,0),(0,1),(0,2),(1,0),(1,1),(1,2),(2,0),(2,1),(2,2)]
 univ2 = Polyomino [(0,0),(0,1),(0,2),(1,0),(1,1),(1,2)]
@@ -25,6 +26,8 @@ mat1 = Matrix [[True,False,False,True,False,False,True],[True,False,False,True,F
 mat2 = genMatrix univ3 [pol3,pol8]
 mat3 = genMatrix univ3 [pol1]
 mat4 = Matrix [[True,True,False],[False,True,True]]
+mat5 = genMatrix univ1 [pol3,pol7,pol6]
+mat6 = genMatrix univ1 [pol3,pol6,pol7]
 
 -- \TESTING --
 

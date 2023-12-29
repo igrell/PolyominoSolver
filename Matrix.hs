@@ -10,6 +10,9 @@ printMat (Matrix rows) = putStr $ concatMap (\row -> printRow row ++ "\n") rows
 
 -- Getters -- 
 
+getRow :: Matrix -> Int -> [Bool]
+getRow (Matrix rows) n = rows !! n
+
 getCol :: Matrix -> Int -> [Bool]
 getCol (Matrix rows) n = map (!! n) rows
 

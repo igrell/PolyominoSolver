@@ -1,6 +1,7 @@
 module PolyominoPuzzleSolver where
 import Polyomino;
 import Matrix;
+import Sort;
 import KnuthMatrixGeneration;
 
 -- KNUTH'S ALGORITHM X --
@@ -27,7 +28,7 @@ chooseSubRowsStep3_2 :: Matrix -> Int -> [Int]
 chooseSubRowsStep3_2 mat j = [i | i <- [0..(colLength mat - 1)], getEl mat i j]
 
 combineSubRowsStep3_2_5 :: Matrix -> Int -> [Int]
-combineSubRowsStep3_2_5 mat r = removeDuplicates $ foldl (\subrows j -> subrows ++ chooseSubRowsStep3_2 mat j) [] (chooseSubColsStep3_1 mat r)
+combineSubRowsStep3_2_5 mat r = mergeSort $ removeDuplicates $ foldl (\subrows j -> subrows ++ chooseSubRowsStep3_2 mat j) [] (chooseSubColsStep3_1 mat r)
 
 deleteSubRowsStep3_3 :: Matrix -> [Int] -> Matrix
 deleteSubRowsStep3_3 mat [] = mat
