@@ -53,5 +53,5 @@ mapToSols mat = map solvePuzzle (knuthStep mat)
 
 solvePuzzle :: Matrix -> Bool
 solvePuzzle mat | isColless mat = True
-                | hasEmptyCol mat = False
+--                 | hasEmptyCol mat = False
                 | otherwise   = or (mapToSols mat)
