@@ -41,9 +41,14 @@ wordsToPoints contentWords = map read contentWords :: [(Int,Int)]
 contentToList :: String -> [[(Int,Int)]]
 contentToList contents = map wordsToPoints (contentToWords contents)
 
-contentToMatrix :: String -> Matrix
-contentToMatrix contents = uncurry genMatrix pols
-                           where pols = parsePolyominos (contentToList contents)
+polsToMatrix :: (Polyomino,[Polyomino]) -> Matrix
+polsToMatrix = uncurry genMatrix
+
+-- before running the algorithm check if the matrix is empty, which can be the case for example when universe is smaller than any polyomino
+solvePuzzleCond :: (Polyomino,[Polyomino]) -> Bool
+solvePuzzleCond pols | isEmpty mat = False
+                     | otherwise   = solvePuzzle mat
+                    where mat = polsToMatrix pols
 
 main = do
     (fstArg:_) <- getArgs
@@ -54,4 +59,4 @@ main = do
     putStrLn "Your polyominos:"
     printPolyominos (snd problemPols)
     putStr "Solution to the problem: "
-    print (solvePuzzle (contentToMatrix fileContents))
+    print (solvePuzzleCond problemPols)
