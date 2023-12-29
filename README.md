@@ -1,4 +1,7 @@
 # Polyomino puzzle solver
+
+https://en.wikipedia.org/wiki/Polyomino
+
 Given a "building set" of polyominos and a universe polyomino, program outputs whether it is possible to build the universe polyomino with polyominos from the building set.
 
 ## Usage
@@ -26,6 +29,9 @@ Where `u0`, `u1` etc. are points forming the universe polyomino and `pA0`, ..., 
 (0,0) (1,0)
 
 (1,0) (1,1) (0,1) (1,2)
+
+Test inputs can be found in `tests`
+
 ### Output
 Program outputs the graphical representation of the inputted universe polyomino, all the polyominos from building set, and a boolean answer to the puzzle.
 #### Example output
