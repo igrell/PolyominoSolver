@@ -43,7 +43,12 @@ contentToMatrix contents = uncurry genMatrix pols
                            where pols = parsePolyominos (contentToList contents)
 
 main = do
---     (fstArg:_) <- getArgs
-    fileContents <- readFile "input.txt"
-    printMat (contentToMatrix fileContents)
+    (fstArg:_) <- getArgs
+    fileContents <- readFile fstArg
+    let problemPols = parsePolyominos (contentToList fileContents)
+    putStrLn "Your universe:"
+    printPolyomino (fst problemPols)
+    putStrLn "Your polyominos:"
+    printPolyominos (snd problemPols)
+    putStr "Solution to the problem: "
     print (solvePuzzle (contentToMatrix fileContents))

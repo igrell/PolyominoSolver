@@ -29,11 +29,14 @@ parsePolyominoRow :: Polyomino -> [(Int,Int)] -> String
 parsePolyominoRow pol = map (parsePolyomino pol)
 
 printPolyomino :: Polyomino -> IO ()
-printPolyomino (Polyomino pts) = putStr $ concatMap ((++"\n") . parsePolyominoRow (Polyomino pts)) (gridToRows (genGrid xMin xMax yMin yMax))
+printPolyomino (Polyomino pts) = putStrLn $ concatMap ((++"\n") . parsePolyominoRow (Polyomino pts)) (gridToRows (genGrid xMin xMax yMin yMax))
                                  where xMin = minimum (map fst pts)
                                        xMax = maximum (map fst pts)
                                        yMin = minimum (map snd pts)
                                        yMax = maximum (map snd pts)
+
+printPolyominos :: [Polyomino] -> IO ()
+printPolyominos = mapM_ printPolyomino
 
 parsePolyominos :: [[(Int,Int)]] -> (Polyomino, [Polyomino])
 parsePolyominos (x:xs) = (Polyomino x, map Polyomino xs)
