@@ -28,4 +28,4 @@ boolifyPol :: Polyomino -> Polyomino -> [Bool]
 boolifyPol (Polyomino univPts) (Polyomino pts) = map (`elem` pts) univPts
 
 genMatrix :: Polyomino -> [Polyomino] -> Matrix 
-genMatrix universe pols = Matrix (map (boolifyPol universe) (genAllFittingPols universe pols))
+genMatrix (Polyomino univPts) pols = Matrix (map (boolifyPol (Polyomino univPts)) (genAllFittingPols (Polyomino univPts) pols)) (length univPts)

@@ -1,33 +1,36 @@
 module Matrix where
 
-newtype Matrix = Matrix [[Bool]] deriving Show
+data Matrix = Matrix [[Bool]] Int
 
 printRow :: [Bool] -> String
 printRow = map (\x -> if x then '1' else '0')
 
 printMat :: Matrix -> IO ()
-printMat (Matrix rows) = putStr $ concatMap (\row -> printRow row ++ "\n") rows
+printMat (Matrix rows colCt) = putStr $ concatMap (\row -> printRow row ++ "\n") rows
 
 -- Getters -- 
 
 getRow :: Matrix -> Int -> [Bool]
-getRow (Matrix rows) n = rows !! n
+getRow (Matrix rows colCt) n = rows !! n
 
 getCol :: Matrix -> Int -> [Bool]
-getCol (Matrix rows) n = map (!! n) rows
+getCol (Matrix rows colCt) n = map (!! n) rows
+
+getColCt :: Matrix -> Int
+getColCt (Matrix rows colCt) = colCt
 
 -- Basically transposes the matrix
 getCols :: Matrix -> [[Bool]]
-getCols (Matrix rows) = map (getCol (Matrix rows)) [0..(rowLength (Matrix rows) - 1)]
+getCols (Matrix rows colCt) = map (getCol (Matrix rows colCt)) [0..(rowLength (Matrix rows colCt) - 1)]
 
 getEl :: Matrix -> Int -> Int -> Bool
-getEl (Matrix rows) rowId colId = (rows !! rowId) !! colId
+getEl (Matrix rows colCt) rowId colId = (rows !! rowId) !! colId
 
 rowLength :: Matrix -> Int
-rowLength (Matrix rows) = length (head rows)
+rowLength (Matrix rows colCt) = length (head rows)
 
 colLength :: Matrix -> Int
-colLength (Matrix rows) = length rows
+colLength (Matrix rows colCt) = length rows
 
 -- Removing utils --
 
@@ -36,7 +39,7 @@ removeEl n lst = fst splitted ++ tail (snd splitted)
                  where splitted = splitAt n lst
 
 removeRow :: Matrix -> Int -> Matrix
-removeRow (Matrix rows) n = Matrix (removeEl n rows)
+removeRow (Matrix rows colCt) n = Matrix (removeEl n rows) colCt
 
 removeRows :: Matrix -> [Int] -> Matrix
 removeRows mat [] = mat
@@ -44,7 +47,7 @@ removeRows mat [x] = removeRow mat x
 removeRows mat (x:xs) = removeRows (removeRow mat x) (map (\x -> x-1) xs)
 
 removeCol :: Matrix -> Int -> Matrix
-removeCol (Matrix rows) n = Matrix (map (removeEl n) rows)
+removeCol (Matrix rows colCt) n = Matrix (map (removeEl n) rows) (colCt-1)
 
 removeCols :: Matrix -> [Int] -> Matrix
 removeCols mat [] = mat
@@ -61,7 +64,7 @@ removeDuplicates (x:xs) = x: removeDuplicates [k | k <- xs, k /= x]
 -- counting Trues
 
 countTruesInCols :: Matrix -> [Int]
-countTruesInCols (Matrix rows) = map (length . filter id) (getCols (Matrix rows))
+countTruesInCols (Matrix rows colCt) = map (length . filter id) (getCols (Matrix rows colCt))
 
 
 filterFewest :: [Int] -> [Bool]
@@ -69,15 +72,18 @@ filterFewest lst = map (== fewest) lst
                    where fewest = minimum lst
 
 chooseColStep1Helper :: Matrix -> Int -> Int
-chooseColStep1Helper (Matrix rows) n | fewest !! n = n
-                                     | otherwise   = chooseColStep1Helper (Matrix rows) (n+1)
-                              where fewest = filterFewest (countTruesInCols (Matrix rows))
+chooseColStep1Helper (Matrix rows colCt) n | fewest !! n = n
+                                     | otherwise   = chooseColStep1Helper (Matrix rows colCt) (n+1)
+                              where fewest = filterFewest (countTruesInCols (Matrix rows colCt))
 
 -- Checking properties utils
 
 isEmpty :: Matrix -> Bool
-isEmpty (Matrix []) = True
-isEmpty (Matrix rows) = maximum (map length rows) == 0 -- has only some amount of empty rows
+isEmpty (Matrix [] _) = True
+isEmpty (Matrix rows colCt) = maximum (map length rows) == 0 -- has only some amount of empty rows
+
+isColless :: Matrix -> Bool
+isColless (Matrix rows colCt) = colCt == 0
 
 hasEmptyCol :: Matrix -> Bool
 hasEmptyCol mat = minimum (countTruesInCols mat) == 0
@@ -86,8 +92,4 @@ hasFullCol :: Matrix -> Bool
 hasFullCol mat = maximum (countTruesInCols mat) == colLength mat
 
 hasFullRow :: Matrix -> Bool
-hasFullRow (Matrix rows) = any and rows
-
--- edgecases such as (Matrix [[True,True,False],[False,True,True]])
-overcoverEdgecase :: Matrix -> Bool
-overcoverEdgecase mat = hasFullCol mat && not (hasFullRow mat)
+hasFullRow (Matrix rows colCt) = any and rows

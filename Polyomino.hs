@@ -15,7 +15,7 @@ genGrid xMin xMax yMin yMax | xMax == xMin = map (xMin,) [yMin..yMax]
 
 -- sorts list of points into a list of lists of points according to their y-coordinate
 sortByRow :: [[(Int,Int)]] -> (Int,Int) -> [[(Int,Int)]]
-sortByRow lsts pt | null (filter (\lst -> snd (head lst) == snd pt) lsts) = lsts++[[pt]]
+sortByRow lsts pt | not (any (\lst -> snd (head lst) == snd pt) lsts) = lsts++[[pt]]
                   | otherwise                                              = map (\lst -> if snd (head lst) == snd pt then lst++[pt] else lst) lsts
 
 -- sorts grid into rows
