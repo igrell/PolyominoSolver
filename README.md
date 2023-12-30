@@ -4,7 +4,7 @@ Given a "building set" of [polyominos](https://en.wikipedia.org/wiki/Polyomino) 
 This problem is actually just a restricted version of [the exact cover problem](https://en.wikipedia.org/wiki/Exact_cover), and as such it is solved using [Knuth's Algorithm X](https://en.wikipedia.org/wiki/Knuth's_Algorithm_X).
 
 ## Requirements
-A working [ghc](https://www.haskell.org/ghc/) compiler or any online Haskell compiler.
+A working [ghc compiler](https://www.haskell.org/ghc/) or any online Haskell compiler.
 
 ## Usage
 ### Compile Main
