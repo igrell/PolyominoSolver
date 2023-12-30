@@ -1,7 +1,7 @@
 # Polyomino puzzle solver
 Given a "building set" of [polyominos](https://en.wikipedia.org/wiki/Polyomino) and a universe polyomino, program outputs whether it is possible to build the universe polyomino with polyominos from the building set. 
 
-This problem is actually just a restricted version of the exact cover problem, and as such it is solved using [Knuth's Algorithm X](https://en.wikipedia.org/wiki/Knuth's_Algorithm_X).
+This problem is actually just a restricted version of [the exact cover problem](https://en.wikipedia.org/wiki/Exact_cover), and as such it is solved using [Knuth's Algorithm X](https://en.wikipedia.org/wiki/Knuth's_Algorithm_X).
 
 ## Requirements
 A working [ghc](https://www.haskell.org/ghc/) compiler or any online Haskell compiler.
