@@ -41,7 +41,7 @@ Test inputs can be found in `tests`
 
 ### Output
 Program outputs the graphical representation of the inputted universe polyomino, all the polyominos from building set, and a boolean answer to the puzzle.
-#### Example output
+#### Output for the example input
 
     Your universe:
     
