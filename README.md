@@ -11,7 +11,9 @@ A working `ghc` compiler: https://www.haskell.org/ghc/ or any online Haskell com
 
 ## Usage
 ### Compile Main
-` ghc Main.hs `
+
+    ghc Main.hs
+
 ### Run program
 `./Main "input.txt"`
 ### Input
