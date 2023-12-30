@@ -6,7 +6,7 @@ import KnuthMatrixGeneration;
 
 -- KNUTH'S ALGORITHM X --
 -- STEPS:
--- 0. If matrix is empty then the current solution is valid; if it has a purely 0 column, it is invalid
+-- 0. If matrix has no columns, then the current solution is valid; otherwise it is invalid
 -- 1. Choose the first column with the smallest amount of 1s
 -- 2. Choose all rows 'r' for which the chosen column 'c' has a 1
 -- 3. Choose all rows and columns with 1s intersecting with those in a given row 'r' and delete them
@@ -53,5 +53,4 @@ mapToSols mat = map solvePuzzle (knuthStep mat)
 
 solvePuzzle :: Matrix -> Bool
 solvePuzzle mat | isColless mat = True
---                 | hasEmptyCol mat = False
                 | otherwise   = or (mapToSols mat)
