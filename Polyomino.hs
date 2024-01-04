@@ -15,11 +15,13 @@ genGrid xMin xMax yMin yMax | xMax == xMin = map (xMin,) [yMin..yMax]
 
 -- sorts list of points into a list of lists of points according to their y-coordinate
 sortByRow :: [[(Int,Int)]] -> (Int,Int) -> [[(Int,Int)]]
+sortByRow [] _ = []
 sortByRow lsts pt | not (any (\lst -> snd (head lst) == snd pt) lsts) = lsts++[[pt]]
-                  | otherwise                                              = map (\lst -> if snd (head lst) == snd pt then lst++[pt] else lst) lsts
+                  | otherwise                                         = map (\lst -> if snd (head lst) == snd pt then lst++[pt] else lst) lsts
 
 -- sorts grid into rows
 gridToRows :: [(Int,Int)] -> [[(Int,Int)]]
+gridToRows [] = [[]]
 gridToRows pts = foldl sortByRow [[head pts]] (tail pts)
 
 parsePolyomino :: Polyomino -> (Int,Int) -> Char
@@ -39,5 +41,6 @@ printPolyominos :: [Polyomino] -> IO ()
 printPolyominos = mapM_ printPolyomino
 
 parsePolyominos :: [[(Int,Int)]] -> (Polyomino, [Polyomino])
+parsePolyominos []     = (Polyomino [], [])
 parsePolyominos (x:xs) = (Polyomino x, map Polyomino xs)
 

@@ -8,6 +8,7 @@ subset (Polyomino ptsB) (Polyomino ptsA) = not (any (`notElem` ptsB) ptsA)
 
 -- shifts the whole polyomino so that it's arbitrary element (here head) matches given point
 shiftPolToPoint :: Polyomino -> (Int,Int) -> Polyomino
+shiftPolToPoint (Polyomino []) _   = Polyomino []
 shiftPolToPoint (Polyomino pts) pt = Polyomino (map (\(x,y) -> (x+xDiff, y+yDiff)) pts)
                                      where xDiff = fst pt - fst (head pts)
                                            yDiff = snd pt - snd (head pts)

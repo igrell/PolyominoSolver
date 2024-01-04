@@ -1,8 +1,8 @@
 module PolyominoPuzzleSolver where
-import Polyomino;
+import Polyomino();
 import Matrix;
 import Sort;
-import KnuthMatrixGeneration;
+import KnuthMatrixGeneration();
 
 -- KNUTH'S ALGORITHM X --
 -- STEPS:

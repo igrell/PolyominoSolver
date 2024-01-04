@@ -2,7 +2,7 @@ import Polyomino;
 import Matrix;
 import KnuthMatrixGeneration;
 import PolyominoPuzzleSolver;
-import System.IO;
+import System.IO();
 import System.Environment;
 
 -- INPUT PARSING --
@@ -26,6 +26,7 @@ solvePuzzleCond pols | isEmpty mat = False
                      | otherwise   = solvePuzzle mat
                     where mat = polsToMatrix pols
 
+main :: IO ()
 main = do
     (fstArg:_) <- getArgs
     fileContents <- readFile fstArg

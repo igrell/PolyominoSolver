@@ -6,36 +6,37 @@ printRow :: [Bool] -> String
 printRow = map (\x -> if x then '1' else '0')
 
 printMat :: Matrix -> IO ()
-printMat (Matrix rows colCt) = putStr $ concatMap (\row -> printRow row ++ "\n") rows
+printMat (Matrix rows _) = putStr $ concatMap (\row -> printRow row ++ "\n") rows
 
 -- Getters -- 
 
 getRow :: Matrix -> Int -> [Bool]
-getRow (Matrix rows colCt) n = rows !! n
+getRow (Matrix rows _) n = rows !! n
 
 getCol :: Matrix -> Int -> [Bool]
-getCol (Matrix rows colCt) n = map (!! n) rows
+getCol (Matrix rows _) n = map (!! n) rows
 
 getColCt :: Matrix -> Int
-getColCt (Matrix rows colCt) = colCt
+getColCt (Matrix _ colCt) = colCt
 
 -- Basically transposes the matrix
 getCols :: Matrix -> [[Bool]]
 getCols (Matrix rows colCt) = map (getCol (Matrix rows colCt)) [0..(rowLength (Matrix rows colCt) - 1)]
 
 getEl :: Matrix -> Int -> Int -> Bool
-getEl (Matrix rows colCt) rowId colId = (rows !! rowId) !! colId
+getEl (Matrix rows _) rowId colId = (rows !! rowId) !! colId
 
 rowLength :: Matrix -> Int
-rowLength (Matrix rows colCt) = length (head rows)
+rowLength (Matrix [] _)   = 0
+rowLength (Matrix rows _) = length (head rows)
 
 colLength :: Matrix -> Int
-colLength (Matrix rows colCt) = length rows
+colLength (Matrix rows _) = length rows
 
 -- Removing utils --
 
 removeEl :: Int -> [a] -> [a]
-removeEl n lst = fst splitted ++ tail (snd splitted)
+removeEl n lst = fst splitted ++ (drop 1) (snd splitted)
                  where splitted = splitAt n lst
 
 removeRow :: Matrix -> Int -> Matrix
@@ -44,7 +45,7 @@ removeRow (Matrix rows colCt) n = Matrix (removeEl n rows) colCt
 removeRows :: Matrix -> [Int] -> Matrix
 removeRows mat [] = mat
 removeRows mat [x] = removeRow mat x
-removeRows mat (x:xs) = removeRows (removeRow mat x) (map (\x -> x-1) xs)
+removeRows mat (x:xs) = removeRows (removeRow mat x) (map (\y -> y-1) xs)
 
 removeCol :: Matrix -> Int -> Matrix
 removeCol (Matrix rows colCt) n = Matrix (map (removeEl n) rows) (colCt-1)
@@ -52,7 +53,7 @@ removeCol (Matrix rows colCt) n = Matrix (map (removeEl n) rows) (colCt-1)
 removeCols :: Matrix -> [Int] -> Matrix
 removeCols mat [] = mat
 removeCols mat [x] = removeCol mat x
-removeCols mat (x:xs) = removeCols (removeCol mat x) (map (\x -> x-1) xs)
+removeCols mat (x:xs) = removeCols (removeCol mat x) (map (\y -> y-1) xs)
 
 removeRowsAndCols :: Matrix -> [Int] -> [Int] -> Matrix
 removeRowsAndCols mat cols rows = removeCols (removeRows mat rows) cols
@@ -80,10 +81,10 @@ chooseColStep1Helper (Matrix rows colCt) n | fewest !! n = n
 
 isEmpty :: Matrix -> Bool
 isEmpty (Matrix [] _) = True
-isEmpty (Matrix rows colCt) = maximum (map length rows) == 0 -- has only some amount of empty rows
+isEmpty (Matrix rows _) = maximum (map length rows) == 0 -- has only some amount of empty rows
 
 isColless :: Matrix -> Bool
-isColless (Matrix rows colCt) = colCt == 0
+isColless (Matrix _ colCt) = colCt == 0
 
 hasEmptyCol :: Matrix -> Bool
 hasEmptyCol mat = minimum (countTruesInCols mat) == 0
@@ -92,4 +93,4 @@ hasFullCol :: Matrix -> Bool
 hasFullCol mat = maximum (countTruesInCols mat) == colLength mat
 
 hasFullRow :: Matrix -> Bool
-hasFullRow (Matrix rows colCt) = any and rows
+hasFullRow (Matrix rows _) = any and rows
