@@ -1,5 +1,6 @@
 module Matrix where
 
+-- Int stands for column counter
 data Matrix = Matrix [[Bool]] Int
 
 printRow :: [Bool] -> String
@@ -74,8 +75,8 @@ filterFewest lst = map (== fewest) lst
 
 chooseColStep1Helper :: Matrix -> Int -> Int
 chooseColStep1Helper (Matrix rows colCt) n | fewest !! n = n
-                                     | otherwise   = chooseColStep1Helper (Matrix rows colCt) (n+1)
-                              where fewest = filterFewest (countTruesInCols (Matrix rows colCt))
+                                           | otherwise   = chooseColStep1Helper (Matrix rows colCt) (n+1)
+                                            where fewest = filterFewest (countTruesInCols (Matrix rows colCt))
 
 -- Checking properties utils
 

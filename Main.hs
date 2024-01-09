@@ -20,7 +20,7 @@ contentToList contents = map wordsToPoints (contentToWords contents)
 polsToMatrix :: (Polyomino,[Polyomino]) -> Matrix
 polsToMatrix = uncurry genMatrix
 
--- before running the algorithm check if the matrix is empty, which can be the case for example when universe is smaller than any polyomino
+-- BEFORE running the algorithm check if the matrix is empty, which can be the case for example when universe is smaller than any polyomino
 solvePuzzleCond :: (Polyomino,[Polyomino]) -> Bool
 solvePuzzleCond pols | isEmpty mat = False
                      | otherwise   = solvePuzzle mat

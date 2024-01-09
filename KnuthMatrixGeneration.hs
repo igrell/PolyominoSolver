@@ -28,5 +28,6 @@ genAllFittingPols universe pols = map sortPolyomino (concatMap (genFittingPols u
 boolifyPol :: Polyomino -> Polyomino -> [Bool]
 boolifyPol (Polyomino univPts) (Polyomino pts) = map (`elem` pts) univPts
 
+-- for universe Polyomino and list of Polyominos generate boolian matrix
 genMatrix :: Polyomino -> [Polyomino] -> Matrix 
 genMatrix (Polyomino univPts) pols = Matrix (map (boolifyPol (Polyomino univPts)) (genAllFittingPols (Polyomino univPts) pols)) (length univPts)

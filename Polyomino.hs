@@ -4,7 +4,7 @@ import Sort;
 -- define Polyomino as a set of points in R2
 newtype Polyomino = Polyomino [(Int,Int)] deriving (Show, Eq)
 
--- soft Polyomino lexicographically
+-- sort Polyomino lexicographically
 sortPolyomino :: Polyomino -> Polyomino
 sortPolyomino (Polyomino pts) = Polyomino (mergeSort pts)
 
@@ -30,6 +30,10 @@ parsePolyomino (Polyomino pts) pt = if pt `elem` pts then 'o' else ' '
 parsePolyominoRow :: Polyomino -> [(Int,Int)] -> String
 parsePolyominoRow pol = map (parsePolyomino pol)
 
+parsePolyominos :: [[(Int,Int)]] -> (Polyomino, [Polyomino])
+parsePolyominos []     = (Polyomino [], [])
+parsePolyominos (x:xs) = (Polyomino x, map Polyomino xs)
+
 printPolyomino :: Polyomino -> IO ()
 printPolyomino (Polyomino pts) = putStrLn $ concatMap ((++"\n") . parsePolyominoRow (Polyomino pts)) (gridToRows (genGrid xMin xMax yMin yMax))
                                  where xMin = minimum (map fst pts)
@@ -39,8 +43,4 @@ printPolyomino (Polyomino pts) = putStrLn $ concatMap ((++"\n") . parsePolyomino
 
 printPolyominos :: [Polyomino] -> IO ()
 printPolyominos = mapM_ printPolyomino
-
-parsePolyominos :: [[(Int,Int)]] -> (Polyomino, [Polyomino])
-parsePolyominos []     = (Polyomino [], [])
-parsePolyominos (x:xs) = (Polyomino x, map Polyomino xs)
 
