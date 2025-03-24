@@ -1,5 +1,5 @@
 # ![image](./polyominoes.png)
-Image source: Wikipedia
+*Image source: Wikipedia*
 # Polyomino puzzle solver
 Given a "building set" of [polyominos](https://en.wikipedia.org/wiki/Polyomino) and a universe polyomino, program outputs whether it is possible to build the universe polyomino with polyominos from the building set. 
 
